@@ -62,7 +62,11 @@ enum vfs_scheme
    VFS_SCHEME_CDROM
 };
 
-#ifndef __WINRT__
+/* UWP implementation only works with C++/CX
+ * allow using the traditional file API with as a fallback
+ * for accessing the app's own install directory
+ */
+#if !(defined(__WINRT__) && defined(__cplusplus_winrt))
 #ifdef VFS_FRONTEND
 struct retro_vfs_file_handle
 #else
