@@ -4,12 +4,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#ifndef _MSC_VER
 #include <unistd.h>
+#endif
 #include <errno.h>
 #include <sys/types.h>
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#define close closesocket
 #else
 #include <sys/socket.h>
 #include <sys/ioctl.h>
