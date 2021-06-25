@@ -5,7 +5,7 @@
 *.a
 *.js
 *.bc
-.npmignore
+#.npmignore
 package.json
 
 build/
