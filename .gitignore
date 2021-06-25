@@ -7,3 +7,5 @@
 *.bc
 .npmignore
 package.json
+
+build/
