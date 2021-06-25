@@ -29,16 +29,11 @@ jobs:
             targetplatform: "darwin"
             targetapi: ""
             targetarch: ""
-          - os: macos-latest
-            generator: "Xcode"
-            targetplatform: "iOS"
-            targetapi: ""
-            targetarch: ""
           - os: ubuntu-latest
             generator: "Unix Makefiles"
             targetplatform: ""
             targetapi: ""
-            targetarch: x64
+            targetarch: ""
 
     runs-on: ${{matrix.os}}
 
