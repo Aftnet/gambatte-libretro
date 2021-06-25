@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.19)
 
+set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+
 project(gambatte-libretro)
 
 option(GAMBATTE_STATIC_BUILD "Build as static" OFF)
