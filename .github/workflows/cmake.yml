@@ -24,6 +24,11 @@ jobs:
             targetplatform: "WindowsStore"
             targetapi: "10.0"
             targetarch: x64
+          - os: macos-latest
+            generator: "Xcode"
+            targetplatform: ""
+            targetapi: ""
+            targetarch: ""
           - os: ubuntu-latest
             generator: "Unix Makefiles"
             targetplatform: ""
@@ -35,8 +40,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -A "${{matrix.targetarch}}" -DCMAKE_BUILD_TYPE="${{env.BUILD_TYPE}}"
+    - name: Configure CMake (Visual Studio)
+      if: ${{ matrix.generator == 'Visual Studio 16 2019' }}
+      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -A "${{ matrix.targetarch }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
+
+    - name: Configure CMake (XCode)
+      if: ${{ matrix.generator == 'XCode' }}
+      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
+
+    - name: Configure CMake (Unix Makefiles)
+      if: ${{ matrix.generator == 'Unix Makefiles' }}
+      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
