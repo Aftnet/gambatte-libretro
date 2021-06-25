@@ -26,7 +26,12 @@ jobs:
             targetarch: x64
           - os: macos-latest
             generator: "Xcode"
-            targetplatform: ""
+            targetplatform: "darwin"
+            targetapi: ""
+            targetarch: ""
+          - os: macos-latest
+            generator: "Xcode"
+            targetplatform: "iOS"
             targetapi: ""
             targetarch: ""
           - os: ubuntu-latest
@@ -42,11 +47,11 @@ jobs:
 
     - name: Configure CMake (Visual Studio)
       if: ${{ matrix.generator == 'Visual Studio 16 2019' }}
-      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -A "${{ matrix.targetarch }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
+      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -A "${{ matrix.targetarch }}" -DCMAKE_SYSTEM_NAME="${{ matrix.targetplatform }}" -DCMAKE_SYSTEM_VERSION="${{ matrix.targetapi }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
 
     - name: Configure CMake (XCode)
       if: ${{ matrix.generator == 'XCode' }}
-      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
+      run: cmake -B ${{ github.workspace }}/build -G "${{ matrix.generator }}" -DCMAKE_SYSTEM_NAME="${{ matrix.targetplatform }}" -DCMAKE_BUILD_TYPE="${{ env.BUILD_TYPE }}"
 
     - name: Configure CMake (Unix Makefiles)
       if: ${{ matrix.generator == 'Unix Makefiles' }}
